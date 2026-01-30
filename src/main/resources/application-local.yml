@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/morningprep
+    username: postgres
+    password: postgres
+  # Flyway enabled for local - runs migrations + seed data
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+  jpa:
+    hibernate:
+      # Use 'none' - Flyway manages schema, Hibernate does nothing
+      # After initial setup, can switch to 'validate' to catch entity/schema drift
+      ddl-auto: none
+    show-sql: true
+scheduler:
+  enabled: false
+logging:
+  level:
+    com.usergems: INFO
+    org.hibernate.SQL: INFO
+    org.flywaydb: INFO

@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/morningprep
+    username: postgres
+    password: postgres
+  # Use Flyway for schema management in Docker
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+  # Flyway manages schema, Hibernate does nothing
+  jpa:
+    hibernate:
+      ddl-auto: none
+scheduler:
+  enabled: true
+logging:
+  level:
+    com.usergems: INFO
+    org.flywaydb: INFO
