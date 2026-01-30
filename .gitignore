@@ -48,3 +48,5 @@ logs/
 # Test output
 test-output/
 target/
+
+.factorypath

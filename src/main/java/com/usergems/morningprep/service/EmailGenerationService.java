@@ -24,6 +24,9 @@ public class EmailGenerationService {
 
     private static final String DEFAULT_SUBJECT = "Your Morning Update";
 
+    // Default avatar SVG (simple person silhouette) as data URI - quotes encoded as %27
+    private static final String DEFAULT_AVATAR = "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Ccircle cx=%2720%27 cy=%2720%27 r=%2720%27 fill=%27%23ddd%27/%3E%3Ccircle cx=%2720%27 cy=%2715%27 r=%277%27 fill=%27%23999%27/%3E%3Cpath d=%27M6 40 Q6 28 20 28 Q34 28 34 40%27 fill=%27%23999%27/%3E%3C/svg%3E";
+
     private final MeetingAggregationService meetingAggregationService;
     private final ObjectMapper objectMapper;
 
@@ -120,11 +123,9 @@ public class EmailGenerationService {
                     html.append("<h4>External Attendees</h4>\n");
                     for (var attendee : meeting.externalAttendees()) {
                         html.append("<div class=\"attendee\">\n");
-                        if (attendee.avatarUrl() != null) {
-                            html.append("<img class=\"avatar\" src=\"").append(escapeHtml(attendee.avatarUrl())).append("\" />\n");
-                        } else {
-                            html.append("<div class=\"avatar\"></div>\n");
-                        }
+                        String avatarSrc = attendee.avatarUrl() != null ? escapeHtml(attendee.avatarUrl()) : DEFAULT_AVATAR;
+                        html.append("<img class=\"avatar\" src=\"").append(avatarSrc)
+                            .append("\" onerror=\"this.onerror=null; this.src='").append(DEFAULT_AVATAR).append("';\" />\n");
                         html.append("<div class=\"attendee-info\">\n");
                         html.append("<div class=\"attendee-name\">").append(escapeHtml(attendee.fullName())).append("</div>\n");
                         if (attendee.title() != null) {

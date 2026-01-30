@@ -455,7 +455,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none  # Flyway handles schema
-    show-sql: true
+    show-sql: false
   flyway:
     enabled: true
 
@@ -464,7 +464,7 @@ scheduler:
 
 logging:
   level:
-    com.usergems: DEBUG
+    com.usergems: INFO
 ```
 
 ---
